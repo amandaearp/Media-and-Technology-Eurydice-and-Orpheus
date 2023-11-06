@@ -1,22 +1,34 @@
 #include <Servo.h>
-Servo myservo;
-const int buttonPin = 8;
-int buttonVal;
+Servo OverworldEurydice;
+Servo myservo2;
+const int OrpheusOriginalSpot = 7;
+const int EurydiceRecieveFlower = 8;
+int OrpheusOriginalState;
+int OrpheusOriginalPreviousState;
+int EurydiceFlowerState;
 
 void setup() {
   // put your setup code here, to run once:
-pinMode(buttonPin, INPUT);
-myservo.attach(9);
+pinMode(OrpheusOriginalSpot, INPUT);
+Serial.begin(9600);
+pinMode(EurydiceRecieveFlower, INPUT);
+OverworldEurydice.attach(9);
+myservo2.attach(10);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-buttonVal = digitalRead(buttonPin);
+OrpheusOriginalState = digitalRead(OrpheusOriginalSpot);
+EurydiceFlowerState = digitalRead(EurydiceRecieveFlower);
 
-  if(buttonVal == HIGH) {
-    myservo.write(180);
-}
+if(OrpheusOriginalState != OrpheusOriginalPreviousState){
+  if(OrpheusOriginalState == HIGH && EurydiceFlowerState == HIGH){
+    OverworldEurydice.write(180);
+  }
   else{
-    myservo.write(0);
+    OverworldEurydice.write(0);
+  }
 }
+OrpheusOriginalPreviousState = OrpheusOriginalState;
+
 }
