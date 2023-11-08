@@ -1,3 +1,7 @@
+/*
+Team: Amanda Earp and Rachel Wright
+Project: The Myth of Orpheus and Eurydice
+  */
 #include <Servo.h>
 Servo OverworldEurydice;
 Servo myservo2;
@@ -17,10 +21,10 @@ myservo2.attach(10);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 OrpheusOriginalState = digitalRead(OrpheusOriginalSpot);
 EurydiceFlowerState = digitalRead(EurydiceRecieveFlower);
 
+// Triggers Eurydice to die once Orpheus moves from his original spot AND he gives Eurydice a flower
 if(OrpheusOriginalState != OrpheusOriginalPreviousState){
   if(OrpheusOriginalState == HIGH && EurydiceFlowerState == HIGH){
     OverworldEurydice.write(180);
@@ -30,5 +34,5 @@ if(OrpheusOriginalState != OrpheusOriginalPreviousState){
   }
 }
 OrpheusOriginalPreviousState = OrpheusOriginalState;
-
+  
 }
