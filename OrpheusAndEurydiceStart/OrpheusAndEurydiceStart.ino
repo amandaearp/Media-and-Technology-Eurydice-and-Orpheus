@@ -25,15 +25,16 @@ pinMode(OrpheusOriginalSpot, INPUT);
 Serial.begin(9600);
 pinMode(EurydiceRecieveFlower, INPUT);
 OverworldEurydice.attach(10);
-EurydiceAliveUnderworld.attach(11);
-Hades.attach(12);
-EurydiceDeadUnderworld.attach(13);
+EurydiceAliveUnderworld.attach(12);
+EurydiceDeadUnderworld.attach(11);
+Hades.attach(13);
+
 //Reset servos
-  OverworldEurydice.write(0);
+  OverworldEurydice.write(180);
   EurydiceAliveUnderworld.write(0);
   Hades.write(0);
-  EurydiceAliveUnderworld.write(0);
-  EurydiceDeadUnderworld.write(0);
+  EurydiceAliveUnderworld.write(180);
+  EurydiceDeadUnderworld.write(180);
 }
 
 void loop() {
@@ -43,8 +44,8 @@ EurydiceFlowerState = digitalRead(EurydiceRecieveFlower);
 
 // Triggers Eurydice to die once Orpheus moves from his original spot AND he gives Eurydice a flower
 if(OrpheusOriginalState != OrpheusOriginalPreviousState){
-  if(OrpheusOriginalState == LOW && EurydiceFlowerState == HIGH){
-  OverworldEurydice.write(180);
+  if(OrpheusOriginalState == HIGH){
+  OverworldEurydice.write(0);
   }
 
 }
@@ -61,7 +62,9 @@ if(OrpheusArriveUnderworldState == HIGH){
 }
 
 if(OrpheusLeaveUnderworldState == HIGH){
- EurydiceAliveUnderworld.write(0);
+ EurydiceAliveUnderworld.write(180);
  EurydiceDeadUnderworld.write(90);
 }
+
+
 }
