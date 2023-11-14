@@ -1,7 +1,7 @@
 /*
 Team: Amanda Earp and Rachel Wright
 Project: The Myth of Orpheus and Eurydice
-  */
+*/
 #include <Servo.h>
 Servo OverworldEurydice;
 const int OrpheusOriginalSpot = 5;
@@ -57,7 +57,7 @@ OrpheusLeaveUnderworldState = digitalRead(OrpheusLeaveUnderworld);
 
 if(OrpheusArriveUnderworldState == HIGH){
  OverworldEurydice.write(90);
- Hades.write(90);
+ Hades.write(180);
  EurydiceAliveUnderworld.write(90); //Eurydice UW pops up????
 }
 
