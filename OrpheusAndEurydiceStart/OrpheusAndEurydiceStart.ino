@@ -5,8 +5,8 @@ Project: The Myth of Orpheus and Eurydice
 #include <Servo.h>
 const int SunLED = 8;
 Servo OverworldEurydice;
-const int OrpheusOriginalSpot = 6;
-const int EurydiceRecieveFlower = 7;
+int OrpheusOriginalSpot = 6;
+int EurydiceRecieveFlower = 7;
 int OrpheusOriginalState;
 int OrpheusOriginalPreviousState;
 int EurydiceFlowerState;
@@ -42,7 +42,7 @@ Hades.attach(13);
   OverworldEurydice.write(180);
   EurydiceAliveUnderworld.write(0);
   Hades.write(0);
-  EurydiceAliveUnderworld.write(180);
+  EurydiceAliveUnderworld.write(90);
   EurydiceDeadUnderworld.write(180);
 }
 
@@ -53,15 +53,16 @@ EurydiceFlowerState = digitalRead(EurydiceRecieveFlower);
 
 // Triggers Eurydice to die once Orpheus moves from his original spot AND he gives Eurydice a flower
 if(OrpheusOriginalState != OrpheusOriginalPreviousState){
-  if(OrpheusOriginalState == HIGH && EurydiceRecieveFlower == HIGH){
-  OverworldEurydice.write(0);
-  digitalWrite(SunLED, LOW);
-  digitalWrite(FireLED1, HIGH);
-  digitalWrite(FireLED2, HIGH);
+  if(OrpheusOriginalState == HIGH && EurydiceFlowerState == HIGH){
+    OverworldEurydice.write(0); 
+    digitalWrite(SunLED, LOW);
+    digitalWrite(FireLED1, HIGH);
+    digitalWrite(FireLED2, HIGH);
   }
-
 }
 OrpheusOriginalPreviousState = OrpheusOriginalState;
+
+Serial.println(OrpheusOriginalState, EurydiceFlowerState);
 
 // Underworld Code
 OrpheusArriveUnderworldState = digitalRead(OrpheusArriveUnderworld);
@@ -70,11 +71,11 @@ OrpheusLeaveUnderworldState = digitalRead(OrpheusLeaveUnderworld);
 if(OrpheusArriveUnderworldState == HIGH){
  OverworldEurydice.write(90);
  Hades.write(180);
- EurydiceAliveUnderworld.write(90); //Eurydice UW pops up????
+ EurydiceAliveUnderworld.write(0); //Eurydice UW pops up????
 }
 
 if(OrpheusLeaveUnderworldState == HIGH){
- EurydiceAliveUnderworld.write(180);
+ EurydiceAliveUnderworld.write(90);
  EurydiceDeadUnderworld.write(90);
 }
 
