@@ -2,7 +2,9 @@
 Team: Amanda Earp and Rachel Wright
 Project: The Myth of Orpheus and Eurydice
 */
+
 #include <Servo.h>
+//Declare and assign Overworld servos, LEDs, and switches
 const int SunLED = 8;
 Servo OverworldEurydice;
 int OrpheusOriginalSpot = 6;
@@ -11,6 +13,7 @@ int OrpheusOriginalState;
 int OrpheusOriginalPreviousState;
 int EurydiceFlowerState;
 
+//Declare and assign Underworld servos, LEDs, and switches
 const int FireLED1 = 5;
 const int FireLED2 = 4;
 const int OrpheusArriveUnderworld = 3;
@@ -51,7 +54,7 @@ void loop() {
 OrpheusOriginalState = digitalRead(OrpheusOriginalSpot);
 EurydiceFlowerState = digitalRead(EurydiceRecieveFlower);
 
-// Triggers Eurydice to die once Orpheus moves from his original spot AND he gives Eurydice a flower
+// Triggers Eurydice to die once Orpheus moves to his spot by Eurydice AND he gives Eurydice a flower
 if(OrpheusOriginalState != OrpheusOriginalPreviousState){
   if(OrpheusOriginalState == HIGH && EurydiceFlowerState == HIGH){
     OverworldEurydice.write(0); 
@@ -62,18 +65,18 @@ if(OrpheusOriginalState != OrpheusOriginalPreviousState){
 }
 OrpheusOriginalPreviousState = OrpheusOriginalState;
 
-Serial.println(OrpheusOriginalState, EurydiceFlowerState);
-
 // Underworld Code
 OrpheusArriveUnderworldState = digitalRead(OrpheusArriveUnderworld);
 OrpheusLeaveUnderworldState = digitalRead(OrpheusLeaveUnderworld);
 
+// Triggers Hades to reveal himself, Overworld Eurydice to be hidden, and alive Underworld Eurydice to pop up
 if(OrpheusArriveUnderworldState == HIGH){
  OverworldEurydice.write(90);
  Hades.write(180);
- EurydiceAliveUnderworld.write(0); //Eurydice UW pops up????
+ EurydiceAliveUnderworld.write(0);
 }
 
+// Triggers Underworld Eurydice to "die" (Alive Underworld Eurydice is hidden, dead Underworld Eurydice is revealed)
 if(OrpheusLeaveUnderworldState == HIGH){
  EurydiceAliveUnderworld.write(90);
  EurydiceDeadUnderworld.write(90);
